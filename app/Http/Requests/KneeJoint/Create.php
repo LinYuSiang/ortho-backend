@@ -27,9 +27,9 @@ class Create extends FormRequest
             'medical_record_no' => 'required|string',
             'name' => 'required|string',
             'birthday' => 'required|date',
-            'height' => 'numeric|required_with:bmi',
-            'weight' => 'numeric|required_with:bmi',
-            'bmi' => 'numeric',
+            'height' => 'required|numeric',
+            'weight' => 'required|numeric',
+            'bmi' => 'numeric|required_with:height,weight',
         ];
     }
 }
