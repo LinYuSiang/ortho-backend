@@ -20,7 +20,7 @@ class KneeJointController extends Controller
     public function index()
     {
         $kneeJoints = $this->kneeJointRepo->index(request(['medical_record_no']));
-        return response()->json($kneeJoints);
+        return response()->json(['status' => 0, 'kneeJoints' => $kneeJoints]);
     }
 
     public function store(Create $request)
