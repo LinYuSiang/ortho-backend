@@ -27,4 +27,9 @@ class KneeJoint extends Model
         'medial_distal', 'medial_posterior', 'medial_tibai',
         'lateral_distal', 'lateral_posterior', 'lateral_tibai',
     ];
+
+    public function patient()
+    {
+        return $this->belongsTo('App\Entities\Patient');
+    }
 }
