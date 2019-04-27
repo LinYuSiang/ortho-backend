@@ -10,4 +10,9 @@ class Patient extends Model
         'medical_record_no', 'name', 'birthday', 'gender',
         'height', 'weight', 'bmi',
     ];
+
+    public function kneeJoints()
+    {
+        return $this->hasMany('App\Entities\KneeJoint');
+    }
 }
