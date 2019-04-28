@@ -27,6 +27,11 @@ class KneeJointRepository
             ->get();
     }
 
+    public function find($id)
+    {
+        return $this->kneeJoint->with('patient')->find($id);
+    }
+
     public function create($patient, array $params)
     {
         return $patient->kneeJoints()->create($params);

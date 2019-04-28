@@ -26,6 +26,12 @@ class KneeJointController extends Controller
     public function show($id)
     {
         $kneeJoint = $this->kneeJointRepo->find($id);
+        
+        if ($kneeJoint) {
+            return response()->json(['status' => 0, 'kneeJoint' => $kneeJoint]);
+        }
+
+        return response()->json(['status' => 1, 'message' => 'Not found'], 404);
     }
 
     public function store(Create $request)

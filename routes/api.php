@@ -19,4 +19,4 @@ Route::group(['prefix' => 'auth'], function () {
     Route::post('logout', 'AuthController@logout');
 });
 
-Route::apiResource('knee-joint', 'KneeJointController')->only(['index', 'store']);
+Route::apiResource('knee-joint', 'KneeJointController')->only(['index', 'store', 'show']);
