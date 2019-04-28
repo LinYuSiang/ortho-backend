@@ -36,4 +36,9 @@ class KneeJointRepository
     {
         return $patient->kneeJoints()->create($params);
     }
+
+    public function delete($id)
+    {
+        return $this->kneeJoint->destroy($id);
+    }
 }

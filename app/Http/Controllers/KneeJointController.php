@@ -67,4 +67,15 @@ class KneeJointController extends Controller
 
         return response()->json(['status' => 1]);
     }
+
+    public function destroy($id)
+    {
+        $result = $this->kneeJointRepo->delete($id);
+
+        if ($result) {
+            return response()->json(['status' => 0]);
+        }
+
+        return response()->json(['status' => 1, 'message' => 'Not found'], 404);
+    }
 }
