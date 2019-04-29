@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Http\Request;
 use App\Http\Requests\KneeJoint\Create;
+use App\Http\Requests\KneeJoint\Update;
 use App\Repositories\PatientRepository;
 use App\Repositories\KneeJointRepository;
 
@@ -23,9 +25,56 @@ class KneeJointController extends Controller
         return response()->json(['status' => 0, 'kneeJoints' => $kneeJoints]);
     }
 
+    public function show($id)
+    {
+        $kneeJoint = $this->kneeJointRepo->find($id);
+        
+        if ($kneeJoint) {
+            return response()->json(['status' => 0, 'kneeJoint' => $kneeJoint]);
+        }
+
+        return response()->json(['status' => 1, 'message' => 'Not found'], 404);
+    }
+
     public function store(Create $request)
     {
-        $params = request([
+        $params = $this->getSpecificParameters(request());
+        $patient = $this->patientRepo->create($params);
+        $kneeJoint = $this->kneeJointRepo->create($patient, $params);
+
+        if ($kneeJoint) {
+            return response()->json(['status' => 0]);
+        }
+
+        return response()->json(['status' => 1]);
+    }
+
+    public function update(Update $request, $id)
+    {
+        $params = $this->getSpecificParameters(request());
+        $result = $this->kneeJointRepo->update($id, $params);
+
+        if ($result) {
+            return response()->json(['status' => 0]);
+        }
+
+        return response()->json(['status' => 1, 'message' => 'Not found'], 404);
+    }
+
+    public function destroy($id)
+    {
+        $result = $this->kneeJointRepo->delete($id);
+
+        if ($result) {
+            return response()->json(['status' => 0]);
+        }
+
+        return response()->json(['status' => 1, 'message' => 'Not found'], 404);
+    }
+
+    protected function getSpecificParameters(Request $request)
+    {
+        return request([
             'medical_record_no', 'name', 'birthday', 'gender', 'height', 'weight', 'bmi',
             'type', 'type_other',
             'surgery_date',
@@ -46,14 +95,5 @@ class KneeJointController extends Controller
             'medial_distal', 'medial_posterior', 'medial_tibai',
             'lateral_distal', 'lateral_posterior', 'lateral_tibai',
         ]);
-
-        $patient = $this->patientRepo->create($params);
-        $kneeJoint = $this->kneeJointRepo->create($patient, $params);
-
-        if ($kneeJoint) {
-            return response()->json(['status' => 0]);
-        }
-
-        return response()->json(['status' => 1]);
     }
 }
