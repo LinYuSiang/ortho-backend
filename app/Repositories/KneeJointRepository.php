@@ -37,6 +37,12 @@ class KneeJointRepository
         return $patient->kneeJoints()->create($params);
     }
 
+    public function update($id, array $params)
+    {
+        $kneeJoint = $this->kneeJoint->find($id);
+        return $kneeJoint ? $kneeJoint->update($params) : false;
+    }
+
     public function delete($id)
     {
         return $this->kneeJoint->destroy($id);

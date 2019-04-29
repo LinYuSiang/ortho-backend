@@ -15,7 +15,7 @@ class PatientRepository
 
     public function create(array $data)
     {
-        return $this->patient->updateOrCreate(
+        return $this->patient->firstOrCreate(
             ['medical_record_no' => $data['medical_record_no']],
             [
                 'name' => $data['name'],
