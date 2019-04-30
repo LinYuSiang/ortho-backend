@@ -16,7 +16,7 @@ class KneeJointRepository
     public function index(array $params = [])
     {
         if (empty($params)) {
-            return $this->kneeJoint->get();
+            return $this->kneeJoint->with('patient')->get();
         }
 
         return $this->kneeJoint
