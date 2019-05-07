@@ -19,4 +19,6 @@ Route::group(['prefix' => 'auth'], function () {
     Route::post('logout', 'AuthController@logout');
 });
 
-Route::apiResource('knee-joint', 'KneeJointController');
+Route::group(['middleware' => ['auth:api']], function () {
+    Route::apiResource('knee-joint', 'KneeJointController');
+});
