@@ -46,6 +46,12 @@ return [
             'provider' => 'users',
             'hash' => false,
         ],
+
+        'patient' => [
+            'driver' => 'jwt',
+            'provider' => 'patients',
+            'hash' => false,
+        ],
     ],
 
     /*
@@ -69,6 +75,11 @@ return [
         'users' => [
             'driver' => 'eloquent',
             'model' => App\Entities\User::class,
+        ],
+
+        'patients' => [
+            'driver' => 'eloquent',
+            'model' => App\Entities\Patient::class,
         ],
 
         // 'users' => [

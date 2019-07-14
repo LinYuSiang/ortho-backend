@@ -17,8 +17,21 @@ Route::group(['prefix' => 'auth'], function () {
     Route::get('/', 'AuthController@me');
     Route::post('login', 'AuthController@login');
     Route::post('logout', 'AuthController@logout');
+
+    Route::group(['prefix' => 'patient'], function () {
+        Route::get('/', 'PatientAuthController@me');
+        Route::post('login', 'PatientAuthController@login');
+        Route::post('logout', 'PatientAuthController@logout');
+        Route::post('refresh', 'PatientAuthController@refresh');
+    });
 });
 
+// 病患取得膝關節紀錄
+Route::group(['prefix' => 'patient', 'middleware' => ['auth:patient']], function () {
+    Route::get('knee-joint', 'PatientController@getKneeJoints');
+});
+
+// 醫師&護理師取得膝關節紀錄
 Route::group(['middleware' => ['auth:api']], function () {
     Route::apiResource('knee-joint', 'KneeJointController');
 });
