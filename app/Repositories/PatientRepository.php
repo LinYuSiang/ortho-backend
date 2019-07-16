@@ -27,4 +27,11 @@ class PatientRepository
             ]
         );
     }
+
+    public function getPatient(array $data)
+    {
+        return $this->patient
+            ->where('medical_record_no', $data['medical_record_no'])
+            ->first();
+    }
 }
