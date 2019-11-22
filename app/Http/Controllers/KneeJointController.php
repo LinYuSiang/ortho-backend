@@ -41,7 +41,7 @@ class KneeJointController extends Controller
         $params = $this->getSpecificParameters(request());
         $patient = $this->patientRepo->create($params);
         $kneeJoint = $this->kneeJointRepo->create($patient, $params);
-
+    
         if ($kneeJoint) {
             return response()->json(['status' => 0]);
         }
