@@ -36,8 +36,10 @@ class KneeJointController extends Controller
         return response()->json(['status' => 1, 'message' => 'Not found'], 404);
     }
 
-    public function store(Create $request)
+    public function store()
     {
+
+        // return gettype(request()->bmi);
         $params = $this->getSpecificParameters(request());
         $patient = $this->patientRepo->create($params);
         $kneeJoint = $this->kneeJointRepo->create($patient, $params);

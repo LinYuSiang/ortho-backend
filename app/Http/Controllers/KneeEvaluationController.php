@@ -22,7 +22,14 @@ class KneeEvaluationController extends Controller
      */
     public function index()
     {
-        //
+        $params = $this->kneeEvaluationRepo->index();
+
+        if ($params) {
+            return response()->json(['status' => 0, 'kneeEvaluation' => $params]);
+        }
+
+        return response()->json(['status' => 1, 'message' => 'Not found'], 404);
+    
     }
 
     /**
@@ -31,10 +38,10 @@ class KneeEvaluationController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store()
     {
+      
         $params = $this->getSpecificParameters(request());
-        dd(123);
         $kneeEvaluation = $this->kneeEvaluationRepo->create($params);
 
         if ($kneeEvaluation) {
@@ -51,7 +58,15 @@ class KneeEvaluationController extends Controller
      */
     public function show($id)
     {
-        //
+        $kneeEvaluation = $this->kneeEvaluationRepo->find($id);
+       
+        
+        if ($kneeEvaluation) {
+            return response()->json(['status' => 0, 'kneeEvaluation' => $kneeEvaluation]);
+        }
+
+        return response()->json(['status' => 1, 'message' => 'Not found'], 404);
+    
     }
 
     /**
@@ -84,4 +99,6 @@ class KneeEvaluationController extends Controller
             'toal','name','surgery_date','medical_record_no','birthday'
         ]);
     }
+
+    
 }
