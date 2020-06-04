@@ -17,6 +17,7 @@ Route::group(['prefix' => 'auth'], function () {
     Route::get('/', 'AuthController@me');
     Route::post('login', 'AuthController@login');
     Route::post('logout', 'AuthController@logout');
+    Route::post('me', 'AuthController@me');
 
     Route::group(['prefix' => 'patient'], function () {
         Route::get('/', 'PatientAuthController@me');
@@ -32,6 +33,7 @@ Route::group(['prefix' => 'patient', 'middleware' => ['auth:patient']], function
 });
 
 // 醫師&護理師取得膝關節紀錄
-Route::group(['middleware' => ['auth:api']], function () {
+Route::group(['middleware' => ['auth']], function () {
     Route::apiResource('knee-joint', 'KneeJointController');
+    Route::apiResource('knee-evaluation', 'KneeEvaluationController');
 });
